@@ -1,36 +1,60 @@
 // Dependencies
 var express = require("express");
-var mongooose = require("mongoose");
+var mongoose = require("mongoose");
+var expressHandlebars = require("express-handlebars");
+var bodyParser = require("body-parser");
+
+//  Set up our port to be either the host's designated port or 3000
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
 
+//  Set up express router
+var router = express.Router();
+
 // Set up a static folder (public) for our web app
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
-// Database configuration
-// Save the URL of our database as well as the name of our collection
-var databaseUrl = "";
-var collections = [""];
+//  Connect Handlebars to our Express app
+app.engine("handlebars", expressHandlebars({
+  defaultLayout:"main"
+}));
+app.set("view engine", "handlebars");
 
-// Use mongojs to hook the database to the db variable
-var db = mongojs(databaseUrl, collections);
+//  Use body-parser in our app
+app.use(bodyParser.urlencoded({
+  extended:false
+}));
 
-// This makes sure that any errors are logged if mongodb runs into an issue
-db.on("error", function(error) {
-  console.log("Database Error:", error);
+//  Have every request go through our router middleware
+app.use(router);
+
+//  If Deployed, use the deploye database.  Otherwise use the local mongoHeadlines database
+var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+//  Connect mongoose to our database
+mongoose.connect(db, function(error){
+  if(error){
+    console.log(error);
+  }else{
+    console.log("mongoose connection is successful");
+  }
+})
+
+
+// Set the app to listen on port 3000
+app.listen(PORT, function() {
+  console.log("App running on: " + PORT);
 });
 
-// Routes
-// 1. At the root path, send a simple hello world message to the browser
-app.get("/", function(req, res) {
-    res.send("Hello world");
-  });
+
+// // Routes
+// // 1. At the root path, send a simple hello world message to the browser
+// app.get("/", function(req, res) {
+//     res.send("Hello world");
+//   });
   
 
 
 
-// Set the app to listen on port 3000
-app.listen(3000, function() {
-    console.log("App running on port 3000!");
-  });  
