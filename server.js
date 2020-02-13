@@ -30,6 +30,9 @@ app.use(bodyParser.urlencoded({
 //  Have every request go through our router middleware
 app.use(router);
 
+//  Require our routes file pass our router objec
+require("./config/routes")(router);
+
 //  If Deployed, use the deploye database.  Otherwise use the local mongoHeadlines database
 var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
