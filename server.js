@@ -52,11 +52,6 @@ app.listen(PORT, function() {
 });
 
 
-// // Routes
-// // 1. At the root path, send a simple hello world message to the browser
-// app.get("/", function(req, res) {
-//     res.send("Hello world");
-//   });
   
 
 
