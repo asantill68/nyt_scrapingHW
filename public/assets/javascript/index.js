@@ -1,10 +1,10 @@
 //  Global bootbox
-$(document).reay(function(){
+$(document).ready(function(){
     //  Setting a reference to the article-container div where all the dynamic content will go
     //  Adding event listener to any dynamically generated "save article"
     //  and "scrape new article" bottons
     var articleContainer = $(".article-container");
-    $(document).on("click", ".btn.save", handleArticlSave);
+    $(document).on("click", ".btn.save", handleArticleSave);
     $(document).on("click", ".scrape-new", handleArticleScrape);
 
     //  Once the page is ready, run the initPage function to kick things off
@@ -25,13 +25,13 @@ $(document).reay(function(){
             })
     }
 
-    function renderArticles(article){
+    function renderArticles(articles){
         //  This function handles apending HTML containing our article data to the page
         //  We are passed an array of JSON containing all available articles in our database
         var articlePanels = [];
         //  We pass each article JSON object to the createPanel function which returns to bootstrap
         //  Panel with our article data inside
-        for(var i=0; i<articlePanels.length; i++){
+        for(var i=0; i<articles.length; i++){
             articlePanels.push(createPanel(articles[i]));
         }
         //  Once we have all of the HTML for the articles stored in our articlePanels array
@@ -46,7 +46,7 @@ $(document).reay(function(){
         $(["<div class='panel panel-default'>",
             "<div class='panel-heading'>",
             "<h3>",
-            article.headline[i],
+            article.headline,
             "<a class='btn btn-success save'>",
             "Save Article",
             "</a>",
@@ -69,15 +69,15 @@ $(document).reay(function(){
         //  Using a joined array of HTML string data because it's easier to read/change than a concatenated string
         var emptyAlert =
         $(["<div class='alert alert-warning text-center'>",
-            "<h4>Uh Oh.  Looks like we don't have any new articles.<h4>",
-            "<div>",
+            "<h4>Uh Oh.  Looks like we don't have any new articles.</h4>",
+            "</div>",
             "<div class='panel panel-default'>",
             "<div class='panel-heading text-center'>",
             "<h3>What would you like to do?</h3>",
-            "<div>",
+            "</div>",
             "<div class='panel-body text-center'>",
-            "<h4 <a href='/scrape-new'>Try Scraping New Articles</a></h4>",
-            "<h4 <a href='/saved'>Go to Saved Articles</a></h4>",
+            "<h4><a href='/scrape-new'>Try Scraping New Articles</a></h4>",
+            "<h4><a href='/saved'>Go to Saved Articles</a></h4>",
             "</div>",
             "</div>"
         ].join(""));
