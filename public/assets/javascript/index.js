@@ -13,7 +13,7 @@ $(document).ready(function(){
     function initPage(){
         //  Empty the article container, run an AJAX request for any unsaved headlines
         articleContainer.empty();
-        $.get("/api/healine?saved=false")
+        $.get("/api/headline?saved=false")
             .then(function(data){
                 //  If we have headlines, render them to the page
                 if(data && data.length){

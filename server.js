@@ -34,7 +34,7 @@ app.use(router);
 require("./config/routes")(router);
 
 //  If Deployed, use the deploye database.  Otherwise use the local mongoHeadlines database
-var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var db = process.env.MONGODB_URI || "mongodb://user:password1@ds061731.mlab.com:61731/heroku_kkvz86j2";
 
 //  Connect mongoose to our database
 mongoose.connect(db, function(error){
@@ -44,7 +44,6 @@ mongoose.connect(db, function(error){
     console.log("mongoose connection is successful");
   }
 })
-
 
 // Set the app to listen on port 3000
 app.listen(PORT, function() {

@@ -12,10 +12,10 @@ var scrape = function(cb)  {
 
         var articles = [];
 
-        $(".classnamehere").each(function(i, element){
+        $(".css-lgwb6ca").each(function(i, element){
             
-            var head = $(this).children(".classNameHere").text().trim();
-            var sum = $(this).children(".classNameHere").text().trim();
+            var head = $(this).children(".css-o2lisy es182me0").text().trim();
+            var sum = $(this).children(".css-lpfq5u eln8kpyg0").text().trim();
 
             if(head && sum){
                 //  Rejex method
